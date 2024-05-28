@@ -1,6 +1,5 @@
 name: Download Stock prices
 on:
-  #workflow_dispatch
  schedule:
    - cron: 0 18 * * *  # every evening at 1800
    - cron: 0 19 * * *  # every evening at 1900
@@ -17,9 +16,6 @@ jobs:
       - name: fetch stock prices
         working-directory: price-fetcher
         run:  node getprices.mjs ci
-      - name: fetch gilt prices
-        working-directory: price-fetcher
-        run:  node get-gilt-prices.mjs ci
       - name: commit changes
         run: |
           git config --global user.email "ci@pipeline"
