@@ -1,0 +1,10 @@
+[Unit]
+Description=Gets stock prices each day
+
+[Timer]
+OnCalendar=*-*-* 23:15:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+

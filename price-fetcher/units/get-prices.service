@@ -1,0 +1,10 @@
+[Unit]
+Description=Gets stock prices and saves to a file
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node /home/pi/repos/share-prices/price-fetcher/getprices.mjs pi
+Restart=on-failure
+User=pi
+WorkingDirectory=/home/pi/repos/share-prices/price-fetcher
+

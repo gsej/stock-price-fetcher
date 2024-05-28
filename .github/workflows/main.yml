@@ -1,0 +1,29 @@
+name: Download Stock prices
+on:
+  #workflow_dispatch
+ schedule:
+   - cron: 0 18 * * *  # every evening at 1800
+   - cron: 0 19 * * *  # every evening at 1900
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+      - name: install libraries
+        working-directory: price-fetcher
+        run: npm install
+      - name: fetch stock prices
+        working-directory: price-fetcher
+        run:  node getprices.mjs ci
+      - name: fetch gilt prices
+        working-directory: price-fetcher
+        run:  node get-gilt-prices.mjs ci
+      - name: commit changes
+        run: |
+          git config --global user.email "ci@pipeline"
+          git config --global user.name "ci pipeline"
+          git add -A 
+          git commit -am 'update prices'
+          git push
